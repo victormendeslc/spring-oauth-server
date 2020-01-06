@@ -1,0 +1,30 @@
+server:
+  port: 8081
+
+spring:
+  http:
+    encoding.force: true
+  mvc:
+    throw-exception-if-no-handler-found: true
+  resources:
+    add-mappings: false
+
+  profiles:
+    active: #profile#
+  liquibase:
+    change-log: classpath:/db/master.xml
+  jpa:
+    open-in-view: false
+  datasource:
+    url: jdbc:mysql://mysql.local:3306/financeiro?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: root
+    type: com.zaxxer.hikari.HikariDataSource
+    # hiraki:
+    #  minimumIdle: 5
+    #  maximumPoolSize: 20
+    #  idleTimeout: 30000
+    #  poolName: FinanceiroHirakiCP
+    #   maxLifetime: 2000000
+    #   connectionTimeout: 30000
+
