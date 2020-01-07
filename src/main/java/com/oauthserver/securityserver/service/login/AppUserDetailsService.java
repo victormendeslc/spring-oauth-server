@@ -1,5 +1,6 @@
 package com.oauthserver.securityserver.service.login;
 
+import com.oauthserver.securityserver.config.security.UsuarioSistema;
 import com.oauthserver.securityserver.model.Usuario;
 import com.oauthserver.securityserver.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +30,12 @@ public class AppUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<Usuario> usuarioOptional = usuarioRepository.findByLogin(email);
         Usuario usuario = usuarioOptional.orElseThrow(() -> new UsernameNotFoundException("Usuário e/ou senha incorretos"));
-        AccountStatusUserDetailsChecker verify = new AccountStatusUserDetailsChecker();
-        verify.check(usuario);
 
-        return usuario;
+        UsuarioSistema usuarioSistema = new UsuarioSistema(usuario);
+        AccountStatusUserDetailsChecker verify = new AccountStatusUserDetailsChecker();
+        verify.check(usuarioSistema);
+
+        return usuarioSistema;
     }
 
     private Collection<? extends GrantedAuthority> getPermissoes(Usuario usuario) {

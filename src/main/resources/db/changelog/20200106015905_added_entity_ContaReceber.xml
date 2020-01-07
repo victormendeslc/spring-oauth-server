@@ -27,15 +27,19 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="uuid_usuario_cadastro" type="datetime">
+            <column name="uuid_usuario_cadastro" type="varchar(36)">
                 <constraints nullable="false"/>
             </column>
 
             <column name="data_hora_alteracao" type="datetime">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
 
-            <column name="uuid_usuario_alteracao" type="datetime">
+            <column name="uuid_usuario_alteracao" type="varchar(36)">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="excluido" type="boolean">
                 <constraints nullable="false"/>
             </column>
 
@@ -49,8 +53,6 @@
 
         </createTable>
         <dropDefaultValue tableName="conta_receber" columnName="data_hora_cadastro" columnDataType="datetime"/>
-        <dropDefaultValue tableName="conta_receber" columnName="uuid_usuario_cadastro" columnDataType="datetime"/>
         <dropDefaultValue tableName="conta_receber" columnName="data_hora_alteracao" columnDataType="datetime"/>
-        <dropDefaultValue tableName="conta_receber" columnName="uuid_usuario_alteracao" columnDataType="datetime"/>
     </changeSet>
 </databaseChangeLog>

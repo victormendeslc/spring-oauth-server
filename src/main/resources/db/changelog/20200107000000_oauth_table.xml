@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
+
+    <changeSet author="victor.cunha (generated)" id="1578314518081-1">
+        <createTable tableName="oauth_access_token">
+            <column name="authentication_id" type="VARCHAR(256)">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="oauth_access_tokenPK"/>
+            </column>
+            <column name="authentication" type="BYTEA"/>
+            <column name="client_id" type="VARCHAR(256)"/>
+            <column name="refresh_token" type="VARCHAR(256)"/>
+            <column name="token" type="BYTEA"/>
+            <column name="token_id" type="VARCHAR(256)"/>
+            <column name="user_name" type="VARCHAR(256)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="victor.cunha (generated)" id="1578314518081-2">
+        <createTable tableName="oauth_approvals">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="oauth_approvalsPK"/>
+            </column>
+            <column name="clientId" type="VARCHAR(256)"/>
+            <column name="expiresAt" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="lastModifiedAt" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="scope" type="VARCHAR(256)"/>
+            <column name="status" type="VARCHAR(10)"/>
+            <column name="userId" type="VARCHAR(256)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="victor.cunha (generated)" id="1578314518081-3">
+        <createTable tableName="oauth_client_details">
+            <column name="client_id" type="VARCHAR(256)">
+                <constraints primaryKey="true" primaryKeyName="oauth_client_detailsPK"/>
+            </column>
+            <column name="access_token_validity" type="BIGINT"/>
+            <column name="additional_information" type="VARCHAR(4096)"/>
+            <column name="authorities" type="VARCHAR(256)"/>
+            <column name="authorized_grant_types" type="VARCHAR(256)"/>
+            <column name="autoapprove" type="VARCHAR(256)"/>
+            <column name="client_secret" type="VARCHAR(256)"/>
+            <column name="refresh_token_validity" type="BIGINT"/>
+            <column name="resource_ids" type="VARCHAR(256)"/>
+            <column name="scope" type="VARCHAR(256)"/>
+            <column name="web_server_redirect_uri" type="VARCHAR(256)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="victor.cunha (generated)" id="1578314518081-4">
+        <createTable tableName="oauth_client_token">
+            <column name="authentication_id" type="VARCHAR(256)">
+                <constraints primaryKey="true" primaryKeyName="oauth_client_tokenPK"/>
+            </column>
+            <column name="client_id" type="VARCHAR(256)"/>
+            <column name="token" type="BYTEA"/>
+            <column name="token_id" type="VARCHAR(256)"/>
+            <column name="user_name" type="VARCHAR(256)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="victor.cunha (generated)" id="1578314518081-5">
+        <createTable tableName="oauth_code">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="oauth_codePK"/>
+            </column>
+            <column name="authentication" type="BYTEA"/>
+            <column name="code" type="VARCHAR(256)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="victor.cunha (generated)" id="1578314518081-6">
+        <createTable tableName="oauth_refresh_token">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="oauth_refresh_tokenPK"/>
+            </column>
+            <column name="authentication" type="BYTEA"/>
+            <column name="token" type="BYTEA"/>
+            <column name="token_id" type="VARCHAR(256)"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

@@ -1,7 +1,7 @@
 package com.oauthserver.securityserver.config.token;
 
 
-import com.oauthserver.securityserver.model.Usuario;
+import com.oauthserver.securityserver.config.security.UsuarioSistema;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
@@ -15,7 +15,7 @@ public class CustomTokenEnhancer implements TokenEnhancer {
 
     @Override
     public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
-        Usuario usuarioSistema = (Usuario) authentication.getPrincipal();
+        UsuarioSistema usuarioSistema = (UsuarioSistema) authentication.getPrincipal();
 
         Map<String, Object> addInfo = new HashMap<>();
         addInfo.put("nome", usuarioSistema.getUsername());

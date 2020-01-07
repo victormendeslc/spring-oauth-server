@@ -3,42 +3,48 @@ package com.oauthserver.securityserver.model;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import java.util.Set;
+import javax.validation.constraints.NotNull;
+import java.time.ZonedDateTime;
+import java.util.Collection;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "usuario")
-public class Usuario extends EntidadeBase implements UserDetails {
+public class Usuario extends EntidadeBase {
 
-
+    @NotNull
     private String login;
+
+    @NotNull
     private String senha;
 
-    @Transient
-    private String password;
+    @NotNull
+    @Column(name = "activation_key")
+    private String activationKey;
+
+    @Column(name = "data_hora_activation_key")
+    private ZonedDateTime dataHoraActivationKey;
+
+    @Column(name = "reset_key")
+    private String resetKey;
+
+    @Column(name = "data_hora_reset_key")
+    private ZonedDateTime dataHoraResetKey;
 
     @Transient
-    private String username;
+    private Collection<? extends GrantedAuthority> permissoes;
 
-    @Transient
-    private Set<GrantedAuthority> authorities;
+    public Collection<? extends GrantedAuthority> getPermissoes() {
+        return permissoes;
+    }
 
-    @Transient
-    private boolean accountNonExpired;
-
-    @Transient
-    private boolean accountNonLocked;
-
-    @Transient
-    private boolean credentialsNonExpired;
-
-    @Transient
-    private boolean enabled;
-
+    public void setPermissoes(Collection<? extends GrantedAuthority> permissoes) {
+        this.permissoes = permissoes;
+    }
 }
