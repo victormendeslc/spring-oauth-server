@@ -67,12 +67,25 @@
                 <constraints nullable="true"/>
             </column>
 
-            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="usuario" columnName="data_hora_reset_key" columnDataType="datetime"/>
         <dropDefaultValue tableName="usuario" columnName="data_hora_activation_key" columnDataType="datetime"/>
         <dropDefaultValue tableName="usuario" columnName="data_hora_cadastro" columnDataType="datetime"/>
         <dropDefaultValue tableName="usuario" columnName="data_hora_alteracao" columnDataType="datetime"/>
     </changeSet>
-    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+
+    <changeSet author="liquibase-docs" id="20200106015907-2">
+        <insert tableName="usuario">
+            <column name="id" value="1"/>
+            <column name="uuid" value="8c5b56f2-c938-45f9-baaa-3c449058eadd"/>
+            <column name="data_hora_cadastro" valueDate="${now}"/>
+            <column name="uuid_usuario_cadastro" value="8c5b56f2-c938-45f9-baaa-3c449058eadd"/>
+            <column name="data_hora_alteracao" valueDate="${now}"/>
+            <column name="excluido" value="false"/>
+            <column name="login" value="SISTEMA"/>
+            <column name="senha" value="{bcrypt}$2a$10$xqrMCEh5kS4FzjnN6D.vO.w2pWJn68a0WGjHs.69vOFxrH2xLb96u"/>
+            <column name="activation_key" value="8c5b56f2-c938-45f9-baaa-3c449058eadd"/>
+            <column name="data_hora_activation_key" valueDate="${now}"/>
+        </insert>
+    </changeSet>
 </databaseChangeLog>
