@@ -1,16 +1,15 @@
 package com.oauthserver.securityserver;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 
 import java.util.UUID;
 
 class Gerador {
     public static void main(String... args) {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         System.out.println(UUID.randomUUID().toString());
-        String admin = encoder.encode("admin");
-        //     String admin = encoder.encode("mendes");
-        System.out.println(admin);
+        System.out.println("SENHA" + PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("admin"));
+
+        System.out.println("TESTE " + PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("secret"));
     }
 
 
