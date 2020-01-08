@@ -84,4 +84,16 @@
             <column name="token_id" type="VARCHAR(256)"/>
         </createTable>
     </changeSet>
+
+    <changeSet author="victor.cunha" id="1578314518081-6">
+        <insert tableName="oauth_client_details">
+            <column name="client_id" value="client"/>
+            <column name="access_token_validity" value="1800"/>
+            <column name="authorized_grant_types" value="password,refresh_token"/>
+            <column name="autoapprove" value="true"/>
+            <column name="client_secret" value="$2a$10$zIM4ktazBchnbuXQritsm.qKArVxu9lFLu5M.ja1ozTAeNhDU1I3K"/>
+            <column name="refresh_token_validity" value="84400"/>
+            <column name="scope" value="read,write"/>
+        </insert>
+    </changeSet>
 </databaseChangeLog>
