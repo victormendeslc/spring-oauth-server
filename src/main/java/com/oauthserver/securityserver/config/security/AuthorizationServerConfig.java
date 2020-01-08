@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
-import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
@@ -45,27 +44,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory()
-                .withClient("client")
-                .secret("$2a$10$zIM4ktazBchnbuXQritsm.qKArVxu9lFLu5M.ja1ozTAeNhDU1I3K") //client
-                .scopes("read", "write")
-                .authorizedGrantTypes("password", "refresh_token")
-                .accessTokenValiditySeconds(1800)
-                .refreshTokenValiditySeconds(3600 * 24);
-        /*
         JdbcClientDetailsService jdbcClientDetailsService = new JdbcClientDetailsService(dataSource);
         clients.withClientDetails(jdbcClientDetailsService);
-        //jdbcClientDetailsService.setPasswordEncoder( PasswordEncoderFactories.createDelegatingPasswordEncoder());
-
-
-        clients.inMemory()
-                .withClient("cliente")
-                .secret("{bcrypt}$2a$10$J/iVgksj6bbsdjYEoSGd9ecQV7UmpU8VwnbbOcTh.nk4BMTFcrWEO") //secret
-                .scopes(SCOPE_READ, SCOPE_WRITE)
-                .authorizedGrantTypes(GRANT_TYPE_PASSWORD, REFRESH_TOKEN)
-                .accessTokenValiditySeconds(1800)
-                .refreshTokenValiditySeconds(3600 * 24); */
-
     }
 
     @Override
