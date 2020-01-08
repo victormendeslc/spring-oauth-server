@@ -39,15 +39,24 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Qualifier("appUserDetailsService")
     @Autowired
     private UserDetailsService userDetailsService;
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+        clients.inMemory()
+                .withClient("client")
+                .secret("$2a$10$zIM4ktazBchnbuXQritsm.qKArVxu9lFLu5M.ja1ozTAeNhDU1I3K") //client
+                .scopes("read", "write")
+                .authorizedGrantTypes("password", "refresh_token")
+                .accessTokenValiditySeconds(1800)
+                .refreshTokenValiditySeconds(3600 * 24);
+        /*
         JdbcClientDetailsService jdbcClientDetailsService = new JdbcClientDetailsService(dataSource);
         clients.withClientDetails(jdbcClientDetailsService);
         //jdbcClientDetailsService.setPasswordEncoder( PasswordEncoderFactories.createDelegatingPasswordEncoder());
- /*
+
 
         clients.inMemory()
                 .withClient("cliente")
@@ -57,12 +66,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .accessTokenValiditySeconds(1800)
                 .refreshTokenValiditySeconds(3600 * 24); */
 
-    }
-
-
-    @Override
-    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        super.configure(security);
     }
 
     @Override

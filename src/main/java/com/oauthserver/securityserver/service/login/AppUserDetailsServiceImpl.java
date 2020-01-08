@@ -4,6 +4,7 @@ import com.oauthserver.securityserver.config.security.UsuarioSistema;
 import com.oauthserver.securityserver.model.Usuario;
 import com.oauthserver.securityserver.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AccountStatusUserDetailsChecker;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,8 +18,9 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+@Qualifier("appUserDetailsService")
 @Service
-public class AppUserDetailsService implements UserDetailsService {
+public class AppUserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -28,14 +30,14 @@ public class AppUserDetailsService implements UserDetailsService {
         Optional<Usuario> usuarioOptional = usuarioRepository.findByLogin(login);
         Usuario usuario = usuarioOptional.orElseThrow(() -> new UsernameNotFoundException("Usuário e/ou senha incorretos"));
 
-        UsuarioSistema usuarioSistema = new UsuarioSistema(usuario);
+        UsuarioSistema usuarioSistema = new UsuarioSistema(usuario, getPermissoes());
         AccountStatusUserDetailsChecker verify = new AccountStatusUserDetailsChecker();
         verify.check(usuarioSistema);
 
         return usuarioSistema;
     }
 
-    private Collection<? extends GrantedAuthority> getPermissoes(Usuario usuario) {
+    private Collection<? extends GrantedAuthority> getPermissoes() {
         Set<SimpleGrantedAuthority> authorities = new HashSet<>();
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         return authorities;

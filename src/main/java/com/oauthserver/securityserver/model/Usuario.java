@@ -36,15 +36,4 @@ public class Usuario extends EntidadeBase {
 
     @Column(name = "data_hora_reset_key")
     private ZonedDateTime dataHoraResetKey;
-
-    @Transient
-    private Collection<? extends GrantedAuthority> permissoes;
-
-    public Collection<? extends GrantedAuthority> getPermissoes() {
-        return permissoes;
-    }
-
-    public void setPermissoes(Collection<? extends GrantedAuthority> permissoes) {
-        this.permissoes = permissoes;
-    }
 }

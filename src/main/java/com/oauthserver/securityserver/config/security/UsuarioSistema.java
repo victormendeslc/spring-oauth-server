@@ -21,8 +21,8 @@ public class UsuarioSistema extends User {
         super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
     }
 
-    public UsuarioSistema(Usuario usuario) {
-        this(usuario.getLogin(), usuario.getSenha(), usuario.getExcluido(), true, true, true, usuario.getPermissoes());
+    public UsuarioSistema(Usuario usuario, Collection<? extends GrantedAuthority> permissoes) {
+        this(usuario.getLogin(), usuario.getSenha(), !usuario.getExcluido(), true, true, true, permissoes);
         this.uuid = usuario.getUuid();
     }
 }
